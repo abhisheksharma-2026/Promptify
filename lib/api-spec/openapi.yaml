@@ -1,0 +1,609 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Promptify API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: prompts
+    description: Prompt generation and management
+  - name: templates
+    description: Prompt templates library
+  - name: categories
+    description: Prompt categories
+  - name: favorites
+    description: User favorites
+  - name: stats
+    description: Dashboard stats and analytics
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /prompts:
+    get:
+      operationId: listPrompts
+      tags: [prompts]
+      summary: List saved prompts for current user
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of prompts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Prompt"
+    post:
+      operationId: createPrompt
+      tags: [prompts]
+      summary: Save a generated prompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromptInput"
+      responses:
+        "201":
+          description: Created prompt
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prompt"
+
+  /prompts/{id}:
+    get:
+      operationId: getPrompt
+      tags: [prompts]
+      summary: Get a prompt by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Prompt
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prompt"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    patch:
+      operationId: updatePrompt
+      tags: [prompts]
+      summary: Update a prompt
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromptUpdate"
+      responses:
+        "200":
+          description: Updated prompt
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prompt"
+    delete:
+      operationId: deletePrompt
+      tags: [prompts]
+      summary: Delete a prompt
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /prompts/generate:
+    post:
+      operationId: generatePrompt
+      tags: [prompts]
+      summary: Generate an optimized prompt using the APEX framework (SSE streaming)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeneratePromptInput"
+      responses:
+        "200":
+          description: SSE stream of prompt generation chunks
+          content:
+            text/event-stream: {}
+
+  /prompts/iterate:
+    post:
+      operationId: iteratePrompt
+      tags: [prompts]
+      summary: Iterate on an existing prompt (More Concise, More Detailed, etc.) via SSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IteratePromptInput"
+      responses:
+        "200":
+          description: SSE stream of iterated prompt
+          content:
+            text/event-stream: {}
+
+  /templates:
+    get:
+      operationId: listTemplates
+      tags: [templates]
+      summary: List prompt templates
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Template"
+
+  /templates/{id}:
+    get:
+      operationId: getTemplate
+      tags: [templates]
+      summary: Get a template by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Template
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /categories:
+    get:
+      operationId: listCategories
+      tags: [categories]
+      summary: List all prompt categories
+      responses:
+        "200":
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+
+  /favorites:
+    get:
+      operationId: listFavorites
+      tags: [favorites]
+      summary: List favorited prompts for current user
+      responses:
+        "200":
+          description: List of favorited prompts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Prompt"
+    post:
+      operationId: addFavorite
+      tags: [favorites]
+      summary: Add a prompt to favorites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FavoriteInput"
+      responses:
+        "201":
+          description: Favorited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FavoriteResult"
+
+  /favorites/{promptId}:
+    delete:
+      operationId: removeFavorite
+      tags: [favorites]
+      summary: Remove a prompt from favorites
+      parameters:
+        - name: promptId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Removed
+
+  /prompts/{id}/versions:
+    get:
+      operationId: listPromptVersions
+      tags: [prompts]
+      summary: List all saved versions of a prompt
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of prompt versions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PromptVersion"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /prompts/{id}/versions/{versionId}/restore:
+    post:
+      operationId: restorePromptVersion
+      tags: [prompts]
+      summary: Restore a prompt to a specific version
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: versionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Updated prompt after restore
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prompt"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /stats/dashboard:
+    get:
+      operationId: getDashboardStats
+      tags: [stats]
+      summary: Get dashboard stats for the current user
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /stats/trending:
+    get:
+      operationId: getTrendingPrompts
+      tags: [stats]
+      summary: Get trending / most copied prompts
+      responses:
+        "200":
+          description: Trending prompts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Prompt"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Prompt:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        intent:
+          type: ["string", "null"]
+        expertiseLevel:
+          type: ["string", "null"]
+        qualityScore:
+          type: ["integer", "null"]
+        isFavorited:
+          type: boolean
+        copyCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - title
+        - content
+        - category
+        - isFavorited
+        - copyCount
+        - createdAt
+        - updatedAt
+
+    PromptInput:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        intent:
+          type: string
+        expertiseLevel:
+          type: string
+        qualityScore:
+          type: integer
+      required:
+        - title
+        - content
+        - category
+
+    PromptUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+
+    GeneratePromptInput:
+      type: object
+      properties:
+        userInput:
+          type: string
+        category:
+          type: string
+        tone:
+          type: string
+        language:
+          type: string
+      required:
+        - userInput
+
+    IteratePromptInput:
+      type: object
+      properties:
+        promptContent:
+          type: string
+        action:
+          type: string
+          enum:
+            - more_concise
+            - more_detailed
+            - more_specific
+            - different_angle
+            - change_tone
+            - add_examples
+            - change_format
+        tone:
+          type: string
+      required:
+        - promptContent
+        - action
+
+    Template:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        useCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - description
+        - content
+        - category
+        - useCount
+        - createdAt
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        icon:
+          type: string
+        description:
+          type: string
+        promptCount:
+          type: integer
+      required:
+        - id
+        - name
+        - slug
+        - icon
+        - promptCount
+
+    FavoriteInput:
+      type: object
+      properties:
+        promptId:
+          type: integer
+      required:
+        - promptId
+
+    FavoriteResult:
+      type: object
+      properties:
+        promptId:
+          type: integer
+        favorited:
+          type: boolean
+      required:
+        - promptId
+        - favorited
+
+    DashboardStats:
+      type: object
+      properties:
+        totalPrompts:
+          type: integer
+        totalFavorites:
+          type: integer
+        totalCopies:
+          type: integer
+        promptsThisWeek:
+          type: integer
+        topCategory:
+          type: ["string", "null"]
+        avgQualityScore:
+          type: ["number", "null"]
+        recentPrompts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Prompt"
+      required:
+        - totalPrompts
+        - totalFavorites
+        - totalCopies
+        - promptsThisWeek
+        - recentPrompts
+
+    PromptVersion:
+      type: object
+      properties:
+        id:
+          type: integer
+        promptId:
+          type: integer
+        content:
+          type: string
+        qualityScore:
+          type: ["integer", "null"]
+        action:
+          type: string
+        versionNumber:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - promptId
+        - content
+        - action
+        - versionNumber
+        - createdAt
+
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
