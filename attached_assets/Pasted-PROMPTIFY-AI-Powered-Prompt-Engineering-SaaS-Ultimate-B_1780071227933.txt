@@ -1,0 +1,654 @@
+PROMPTIFY — AI-Powered Prompt Engineering SaaS (Ultimate Build Prompt)
+
+ROLE
+
+You are a world-class SaaS Architect, Senior Software Engineer, Product Designer, AI Engineer, Technical Writer, and Startup Founder with 15+ years of experience building successful AI products.
+
+Your mission is to design and build a complete production-ready SaaS platform called:
+
+Promptify
+
+Tagline:
+"The Grammarly of Prompt Engineering and the Canva of AI Prompt Creation."
+
+The platform should use the APEX Framework (Analyze → Personalize → Expand → Execute & Evolve) to transform raw user ideas into highly optimized AI prompts.
+
+The final product should feel like a premium AI startup, built with modern 2026 design standards and scalable SaaS architecture.
+
+---
+
+PRODUCT VISION
+
+Most prompt generators simply fill templates.
+
+Promptify should act like an intelligent Prompt Architect.
+
+Example:
+
+User Input:
+"I want a trading prompt"
+
+System Output:
+
+- Detect intent
+- Detect expertise level
+- Detect complexity
+- Ask clarification questions if required
+- Build optimized prompt
+- Add smart constraints
+- Improve structure
+- Add output formatting
+- Generate quality score
+
+User should feel:
+
+"I only typed one sentence but got an expert-level prompt."
+
+---
+
+CORE ENGINE — APEX FRAMEWORK
+
+A — ANALYZE
+
+Automatically detect:
+
+Intent
+
+Examples:
+
+- Writing
+- Coding
+- Marketing
+- Business
+- Trading
+- Design
+- Education
+- Research
+- YouTube
+- Social Media
+
+Complexity
+
+- Simple
+- Medium
+- Complex
+
+Expertise
+
+- Beginner
+- Intermediate
+- Expert
+
+Ambiguity Score
+
+If ambiguity is high:
+
+Ask intelligent clarification questions.
+
+Example:
+
+Input:
+"Social media post likhna hai"
+
+Ask:
+
+- Kis platform ke liye?
+- Audience kaun hai?
+- Goal kya hai?
+
+Only then continue.
+
+---
+
+P — PERSONALIZE
+
+Prompt Assembly Engine
+
+Use intelligent blocks:
+
+- Role
+- Instruction
+- Context
+- Examples
+- Constraints
+- Output Format
+
+Rules:
+
+- Instruction always required
+- Context auto-generated
+- Role optional
+- Examples only when useful
+- Output format customized
+
+---
+
+XML MODE
+
+For medium and complex prompts:
+
+<task>
+</task><context>
+</context><constraints>
+</constraints><output_format>
+</output_format>
+
+Simple prompts should remain plain text.
+
+Avoid unnecessary complexity.
+
+---
+
+E — EXPAND
+
+Chain-of-Thought
+
+Inject automatically when reasoning is required.
+
+Example:
+
+Think through this step-by-step before giving the final answer.
+
+---
+
+Few-Shot Examples
+
+Maintain example libraries for:
+
+- Emails
+- Blogs
+- Sales Pages
+- Ad Copy
+- YouTube Scripts
+- Business Plans
+- Coding Tasks
+
+Inject only when relevant.
+
+---
+
+Constraint Intelligence
+
+Auto-recommend constraints.
+
+Examples:
+
+Email:
+
+- Under 150 words
+- Clear CTA
+- No buzzwords
+
+Code:
+
+- Error handling
+- Comments
+- Production-ready
+
+Social:
+
+- Strong hook
+- Conversational tone
+- No hashtag spam
+
+---
+
+X — EXECUTE & EVOLVE
+
+Prompt Quality Analyzer
+
+Check:
+
+- Clarity
+- Specificity
+- Context
+- Constraints
+- Output Structure
+
+Generate:
+
+Prompt Quality Score (1–10)
+
+If score < 7
+
+Suggest improvements.
+
+---
+
+One-Click Iteration
+
+Buttons:
+
+- More Concise
+- More Detailed
+- More Specific
+- Different Angle
+- Change Tone
+- Add Examples
+- Change Format
+
+---
+
+Memory System
+
+Store:
+
+- Preferred tone
+- Preferred prompt length
+- Preferred categories
+- Preferred formats
+
+Build:
+
+Prompt Style Profile
+
+Use automatically in future prompts.
+
+---
+
+MVP FEATURES
+
+Authentication
+
+- Email Signup/Login
+- Google OAuth
+- JWT Authentication
+- Role Management
+- Free vs Paid Accounts
+
+---
+
+Prompt Generator
+
+User enters idea.
+
+AI generates optimized prompt.
+
+Example:
+
+Input:
+"Trading prompt"
+
+Output:
+Professional trading prompt.
+
+---
+
+Prompt Templates Library
+
+Categories:
+
+- Writing
+- Marketing
+- Trading
+- Students
+- Design
+- YouTube
+- Business
+- Coding
+
+Features:
+
+- Search
+- Filter
+- Categories
+- Popular templates
+
+---
+
+Search & Filter
+
+Users can search:
+
+- Category
+- Keywords
+- Popularity
+- Newest
+
+---
+
+One-Click Copy
+
+Copy generated prompt instantly.
+
+---
+
+Free Usage Limits
+
+Free Users:
+
+- 5 prompts/day
+
+Paid Users:
+
+- Unlimited
+
+---
+
+Subscription System
+
+Integrate:
+
+- Razorpay
+- Stripe
+
+Plans:
+
+Basic
+
+Limited usage
+
+Pro
+
+Unlimited prompts
+
+Enterprise
+
+Teams + API Access
+
+---
+
+ADVANCED FEATURES
+
+Save Prompts
+
+Personal library.
+
+---
+
+Favorites
+
+Bookmark prompts.
+
+---
+
+AI Customization
+
+Options:
+
+- Formal
+- Casual
+- Professional
+- Detailed
+- Short
+
+---
+
+Multi-Language
+
+- English
+- Hindi
+
+Architecture should support future languages.
+
+---
+
+Prompt Export
+
+Export for:
+
+- ChatGPT
+- Claude
+- Gemini
+- Midjourney
+- Canva
+- TradingView
+- Notion
+
+---
+
+AI Prompt Editor
+
+Editable prompt builder.
+
+AI suggests:
+
+- Better wording
+- Missing context
+- Better structure
+
+---
+
+Trending Prompt Section
+
+Show:
+
+- Most copied
+- Most viewed
+- Fastest growing
+
+---
+
+Team Workspaces
+
+Features:
+
+- Shared prompts
+- Collaboration
+- Team libraries
+
+---
+
+KILLER DIFFERENTIATORS
+
+Niche Prompt Packs
+
+Examples:
+
+- 100 Trading Prompts
+- 100 Marketing Prompts
+- 50 YouTube Growth Prompts
+- AI Automation Pack
+
+Paid digital products.
+
+---
+
+Prompt Marketplace
+
+Creators can:
+
+- Upload prompts
+- Sell prompts
+- Earn revenue
+
+Platform takes commission.
+
+---
+
+Auto Execution Mode
+
+Generate prompt + AI response.
+
+User sees both.
+
+---
+
+Gamification
+
+Badges
+
+Examples:
+
+- Prompt Creator
+- Power User
+- Top Seller
+
+Leaderboard system.
+
+---
+
+UI/UX DESIGN
+
+Create a modern 2026 SaaS design.
+
+Inspired by:
+
+- OpenAI
+- Linear
+- Notion
+- Framer
+- Vercel
+
+Theme:
+
+- Dark luxury
+- AI futuristic
+- Glassmorphism
+- Blue gradients
+- Purple accents
+
+Features:
+
+- Smooth animations
+- Framer Motion
+- Premium cards
+- Responsive layout
+- Beautiful dashboards
+- Skeleton loaders
+- Toast notifications
+
+---
+
+TECH STACK
+
+Frontend:
+
+- Next.js 15
+- React
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+- Framer Motion
+
+Backend:
+
+- Node.js
+- Express
+
+Database:
+
+- PostgreSQL
+- Prisma ORM
+
+Authentication:
+
+- Clerk
+
+Payments:
+
+- Razorpay
+- Stripe
+
+Storage:
+
+- Supabase
+
+AI Layer:
+
+- OpenAI
+- Claude
+- Gemini
+
+Deployment:
+
+- Vercel
+- Supabase
+
+---
+
+DATABASE SCHEMA
+
+Design complete schema for:
+
+- Users
+- Prompts
+- Categories
+- Prompt Packs
+- Marketplace Listings
+- Purchases
+- Subscriptions
+- Teams
+- Team Members
+- Favorites
+- Usage Tracking
+- Analytics
+
+Include ER diagrams and relationships.
+
+---
+
+API DESIGN
+
+Create APIs for:
+
+Authentication
+
+Prompt Generation
+
+Prompt Saving
+
+Marketplace
+
+Payments
+
+Analytics
+
+Teams
+
+Search
+
+Prompt Quality Analyzer
+
+Prompt Style Profiles
+
+---
+
+DOCUMENTATION REQUIREMENTS
+
+Provide:
+
+- Product Architecture
+- Folder Structure
+- Database Schema
+- API Endpoints
+- UI Screens
+- User Flow Diagrams
+- MVP Roadmap
+- Scaling Roadmap
+- Security Best Practices
+- Deployment Guide
+- Testing Strategy
+
+Use:
+
+- Clear headings
+- Bullet points
+- Practical examples
+- Developer-friendly explanations
+- Step-by-step implementation
+
+Highlight:
+
+- Common mistakes
+- Performance issues
+- Security concerns
+
+---
+
+FINAL DELIVERABLES
+
+Generate:
+
+1. Complete SaaS Architecture
+2. Full Folder Structure
+3. Complete Database Design
+4. Complete API Structure
+5. UI Wireframes
+6. User Flows
+7. MVP Plan
+8. Scaling Plan
+9. Deployment Strategy
+10. Monetization Strategy
+
+The final result should be production-ready and capable of becoming a multi-million-dollar SaaS business.
