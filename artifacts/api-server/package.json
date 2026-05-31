@@ -9,7 +9,6 @@
     "start": "node --enable-source-maps ./dist/index.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
-  {
   "dependencies": {
     "@clerk/express": "^2.1.22",
     "@clerk/shared": "^4.14.0",
@@ -25,7 +24,7 @@
     "pino-http": "^10.5.0",
     "razorpay": "^2.9.6",
     "stripe": "^22.2.0",
-    "esbuild": "0.27.3",          
+    "esbuild": "0.27.3",
     "esbuild-plugin-pino": "^2.3.3"
   },
   "devDependencies": {
