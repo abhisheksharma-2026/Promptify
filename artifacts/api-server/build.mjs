@@ -100,6 +100,12 @@ async function buildAll() {
       "puppeteer",
       "puppeteer-core",
       "electron",
+       "pg",
+    "zod", 
+    "drizzle-zod",
+    "drizzle-orm",
+    "drizzle-orm/node-postgres",
+    "drizzle-orm/pg-core"
     ],
     sourcemap: "linked",
     plugins: [
