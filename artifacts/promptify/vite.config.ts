@@ -4,18 +4,17 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-
 const port = Number(process.env.PORT || 3000);
-
 const basePath = process.env.BASE_PATH || "/";
-
+const isProduction = process.env.NODE_ENV === "production"; // Check if production
 
 export default defineConfig({
   base: basePath,
   plugins: [
     react(),
     tailwindcss({ optimize: false }),
-    runtimeErrorOverlay(),
+    // Sirf development me error overlay chalayein, production me nahi
+    !isProduction && runtimeErrorOverlay(),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -29,7 +28,7 @@ export default defineConfig({
           ),
         ]
       : []),
-  ],
+  ].filter(Boolean), // Isse 'false' values remove ho jayengi
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
