@@ -18,7 +18,7 @@
     "cors": "^2.8.6",
     "drizzle-orm": "catalog:",
      "drizzle-zod": "catalog:",   
-    "pg": "^8.13.3",             
+    "pg": "catalog:",             
     "zod": "catalog:",           
     "express": "^5.2.1",
     "http-proxy-middleware": "^4.0.0",
