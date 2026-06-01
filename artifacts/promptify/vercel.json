@@ -1,5 +1,6 @@
 {
-  "outputDirectory": "dist/public",
+  "installCommand": "npm install -g pnpm@9.15.0 && pnpm install",
+  "outputDirectory": "dist",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
