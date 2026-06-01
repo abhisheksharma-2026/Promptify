@@ -13,6 +13,12 @@ import { logger } from "./lib/logger";
 
 const app: Express = express();
 
+// 1. CORS KO SABSE UPAR RAKHO - Taaki Vercel frontend se koi bhi request block na ho
+app.use(cors({ 
+  credentials: true, 
+  origin: true // Yeh aapke Vercel aur local dono URLs ko accept kar lega
+}));
+
 app.use(
   pinoHttp({
     logger,
@@ -33,6 +39,7 @@ app.use(
   }),
 );
 
+// Clerk Proxy Middleware (Jo humne pichli file me Vercel ke liye bypass kiya tha)
 app.use(CLERK_PROXY_PATH, clerkProxyMiddleware());
 
 // Stripe webhook MUST come before express.json() — needs raw Buffer body
@@ -41,8 +48,6 @@ app.post(
   express.raw({ type: "application/json" }),
   async (req, res) => {
     const { default: paymentsRouter } = await import("./routes/payments");
-    // Delegate to payments router's inline webhook handler by re-dispatching
-    // Actually we inline the handler here to avoid double-routing
     const sig = req.headers["stripe-signature"] as string;
     if (!sig) {
       res.status(400).json({ error: "Missing stripe-signature" });
@@ -89,7 +94,7 @@ app.post(
             plan: "free",
             planInterval: "monthly",
           });
-          await paymentStorage.setUserPlan(userId, "free", "monthly", "usd");
+          await paymentStorage.setUserPlan(userId, free, "monthly", "usd");
         }
       }
 
@@ -101,17 +106,27 @@ app.post(
   }
 );
 
-app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// 2. SMART CLERK MIDDLEWARE: Vercel ke liye fallback lagaya hai
 app.use(
-  clerkMiddleware((req) => ({
-    publishableKey: publishableKeyFromHost(
-      getClerkProxyHost(req) ?? "",
-      process.env.CLERK_PUBLISHABLE_KEY,
-    ),
-  })),
+  clerkMiddleware((req) => {
+    // Agar Vercel par chal raha hai toh seedha standard key uthao, host-based validation bypass karo
+    if (process.env.VERCEL === "1") {
+      return {
+        publishableKey: process.env.CLERK_PUBLISHABLE_KEY || process.env.VITE_CLERK_PUBLISHABLE_KEY
+      };
+    }
+    
+    // Local ya Replit environment ke liye purana custom logic
+    return {
+      publishableKey: publishableKeyFromHost(
+        getClerkProxyHost(req) ?? "",
+        process.env.CLERK_PUBLISHABLE_KEY,
+      ),
+    };
+  }),
 );
 
 app.use("/api", router);
